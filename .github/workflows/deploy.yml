@@ -1,4 +1,4 @@
-ame: Deploy / Atualizar Servidores
+name: Deploy / Atualizar Servidores
 run-name: Deploy do artefato ${{ inputs.releasetag }} em ${{ inputs.ambiente }} disparada por ${{ github.actor }}
 
 on:
