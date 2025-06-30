@@ -11,9 +11,6 @@ on:
         required: true
         default: 'minor'
         options:
-        - patch
-        - minor
-        - major
         - snapshot
 
 jobs:
@@ -74,19 +71,19 @@ jobs:
       - name: Compila o(s) projeto(s)
         shell: bash
         run: |
-          cd build/ci_cd_projeto/backend
+          cd build/backend
           npm install
           npm run build
       - name: Compacta(Zip) buid
         shell: bash
         run: |
-          cd build/ci_cd_projeto/backend
+          cd build/backend
           zip -r backend.zip dist
       - name: Upload Zip Backend
         uses: actions/upload-artifact@v4
         with:
           name: backend
-          path: build/ci_cd_projeto/backend/backend.zip
+          path: build/backend/backend.zip
   
   teste_back:
     name: Teste
@@ -100,7 +97,7 @@ jobs:
       - name: Executar os testes automatizados
         shell: bash
         run: |
-          cd ci_cd_projeto/backend
+          cd backend
           npm install
           npm run test:cov
       - name: SonarQube Scan
@@ -121,19 +118,19 @@ jobs:
       - name: Compila o(s) projeto(s)
         shell: bash
         run: |
-          cd build/ci_cd_projeto/frontend
+          cd build/frontend
           npm install
           npm run build
       - name: Compacta(Zip) buid
         shell: bash
         run: |
-          cd build/ci_cd_projeto/frontend
+          cd build/frontend
           zip -r frontend.zip dist
       - name: Upload Zip Frontend
         uses: actions/upload-artifact@v4
         with:
           name: frontend
-          path: build/ci_cd_projeto/frontend/frontend.zip
+          path: build/frontend/frontend.zip
           
   empacotar:
     name: Empacotar
