@@ -1,0 +1,17 @@
+name: CI - Snapshot
+run-name: CI snapshot disparada por ${{ github.actor }}
+
+on:   
+  # inicia o workflow manualmente
+  workflow_dispatch:
+
+jobs:  
+  snapshot:
+    name: Snapshot
+    uses: rap1986/actions_git/.github/workflows/ci.yml@main
+    secrets: inherit
+    with:
+      tipo_versao: snapshot
+      node_versao: 20.13.1
+      node_compilar_pastas:  backend;frontend
+      node_artefatos:  ./backend/dist ./backend/package.json ./backend/package-lock.json ./backend/tsconfig.json ./frontend/dist

@@ -1,0 +1,32 @@
+name: CI - Release
+run-name: CI release disparada por ${{ github.actor }}
+
+on:
+  # inicia o workflow quando um pull request é aberto, reaberto ou sincronizado
+  pull_request:
+    branches: [main]
+    types: [opened, reopened, synchronize]
+
+  # inicia o workflow manualmente
+  workflow_dispatch:
+    inputs:
+      versao:
+        type: choice
+        description: 'Tipo de build'     
+        required: true
+        default: 'minor'
+        options:
+        - patch
+        - minor
+        - major
+
+jobs:  
+  snapshot:
+    name: Snapshot
+    uses: rap1986/actions_git/.github/workflows/ci.yml@main
+    secrets: inherit
+    with:
+      tipo_versao: ${{ inputs.versao }}
+      node_versao: 20.13.1
+      node_compilar_pastas:  backend;frontend
+      node_artefatos:  ./backend/dist ./backend/package.json ./backend/package-lock.json ./backend/tsconfig.json ./frontend/dist
